@@ -1,77 +1,58 @@
-#include "gtest/gtest.h"
 #include "Five.h"
-#include <string>
+#include "gtest/gtest.h"
 
-TEST(FiveTest, DefaultConstructor) {
-    Five num;
-    EXPECT_EQ(num.to_decimal(), 0);
+TEST(FiveBasics, ConstructFromString) {
+    Five a("42");
+    EXPECT_EQ(a.toDecimal(), 22);
 }
 
-TEST(FiveTest, StringConstructor) {
-    Five num("42");
-    EXPECT_EQ(num.to_decimal(), 22);
+TEST(FiveBasics, ConstructFromDecimal) {
+    Five a(22);
+    EXPECT_EQ(a.toDecimal(), 22);
 }
 
-TEST(FiveTest, DecimalConstructor) {
-    Five num(22);
-    EXPECT_EQ(num.to_decimal(), 22);
-}
-
-TEST(FiveTest, Addition) {
+TEST(FiveArithmetic, Add) {
     Five a("42");
     Five b("34");
-    Five c = a + b;
-    EXPECT_EQ(c.to_decimal(), 41);
+    Five c = a.add(b);
+    EXPECT_EQ(c.toDecimal(), 41);
 }
 
-TEST(FiveTest, Subtraction) {
+TEST(FiveArithmetic, Sub) {
     Five a("42");
     Five b("34");
-    Five c = a - b;
-    EXPECT_EQ(c.to_decimal(), 3);
+    Five c = a.sub(b);
+    EXPECT_EQ(c.toDecimal(), 3);
 }
 
-TEST(FiveTest, SubtractionNegative) {
+TEST(FiveArithmetic, SubNegative) {
     Five a("34");
     Five b("42");
-    Five c = a - b;
-    EXPECT_EQ(c.to_decimal(), 0);
+    Five c = a.sub(b);
+    EXPECT_EQ(c.toDecimal(), 0);
 }
 
-TEST(FiveTest, Equality) {
-    Five a("42");
-    Five b("42");
-    EXPECT_TRUE(a == b);
-}
-
-TEST(FiveTest, LessThan) {
+TEST(FiveCompare, LessThan) {
     Five a("34");
     Five b("42");
-    EXPECT_TRUE(a < b);
+    EXPECT_TRUE(a.lessThan(b));
 }
 
-TEST(FiveTest, GreaterThan) {
+TEST(FiveCompare, GreaterThan) {
     Five a("42");
     Five b("34");
-    EXPECT_TRUE(a > b);
+    EXPECT_TRUE(a.greaterThan(b));
 }
 
-TEST(FiveTest, InvalidStringThrows) {
+TEST(FiveCompare, Equals) {
+    Five a("42");
+    Five b("42");
+    EXPECT_TRUE(a.equals(b));
+}
+
+TEST(FiveErrors, InvalidString) {
     EXPECT_THROW(Five("125"), std::invalid_argument);
     EXPECT_THROW(Five("abc"), std::invalid_argument);
-}
-
-TEST(FiveTest, CopyConstructor) {
-    Five a("42");
-    Five b(a);
-    EXPECT_EQ(a.to_decimal(), b.to_decimal());
-}
-
-TEST(FiveTest, Assignment) {
-    Five a("42");
-    Five b;
-    b = a;
-    EXPECT_EQ(a.to_decimal(), b.to_decimal());
 }
 
 int main(int argc, char **argv) {
