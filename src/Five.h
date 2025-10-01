@@ -1,9 +1,7 @@
-// Five.h
 #ifndef FIVE_H
 #define FIVE_H
 
 #include <string>
-#include <stdexcept>
 
 class Five {
 private:

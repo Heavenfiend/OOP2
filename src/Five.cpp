@@ -1,9 +1,6 @@
-// Five.cpp
 #include "Five.h"
 #include <iostream>
-#include <algorithm>
 
-// Реализация Array
 Five::Array::Array() : data(nullptr), length(0) {}
 
 Five::Array::Array(const size_t& n, unsigned char t) : length(n) {
@@ -27,7 +24,7 @@ Five::Array::Array(const std::string& t) : length(t.size()) {
                 delete[] data;
                 throw std::invalid_argument("Invalid digit in string");
             }
-            data[i] = t[t.size() - 1 - i] - '0';  // переворачиваем строку
+            data[i] = t[t.size() - 1 - i] - '0';
         }
     }
 }
@@ -83,7 +80,6 @@ Five::Array& Five::Array::operator=(const Array& other) {
     return *this;
 }
 
-// Реализация Five
 Five::Five() : digits(1, 0) {}
 
 Five::Five(const std::string& str) {
@@ -95,7 +91,7 @@ Five::Five(const std::string& str) {
 
     digits = Array(str.size());
     for (size_t i = 0; i < str.size(); ++i) {
-        digits[i] = str[str.size() - 1 - i] - '0';  // переворачиваем строку
+        digits[i] = str[str.size() - 1 - i] - '0';
     }
 }
 
@@ -113,7 +109,7 @@ Five::Five(int decimal) {
 
     digits = Array(temp.length());
     for (size_t i = 0; i < temp.length(); ++i) {
-        digits[i] = temp[i] - '0';  // НЕ переворачиваем!
+        digits[i] = temp[i] - '0';
     }
 }
 

@@ -1,13 +1,12 @@
-// main.cpp
 #include "Five.h"
 #include <iostream>
 
 int main() {
     try {
-        Five num1("424");  // 118
-        Five num2("424");  // 114
-        Five sum = num1 + num2;  // 232
-        Five diff = num1 - num2;  // 4
+        Five num1("424");
+        Five num2("424");
+        Five sum = num1 + num2;
+        Five diff = num1 - num2;
 
         std::cout << "num1: "; num1.print();
         std::cout << "num2: "; num2.print();
