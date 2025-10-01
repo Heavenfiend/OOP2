@@ -1,25 +1,31 @@
 #include "Five.h"
 #include <iostream>
 
-Five::Array::Array() : data(nullptr), length(0) {}
+// Конструкторы Array
+Five::Array::Array() {
+    data = nullptr;
+    length = 0;
+}
 
-Five::Array::Array(const size_t& n, unsigned char t) : length(n) {
+Five::Array::Array(const size_t& n, unsigned char t) {
+    length = n;
     if (n == 0) {
         data = nullptr;
     } else {
         data = new unsigned char[n];
-        for (size_t i = 0; i < n; ++i) {
+        for (size_t i = 0; i < n; i++) {
             data[i] = t;
         }
     }
 }
 
-Five::Array::Array(const std::string& t) : length(t.size()) {
+Five::Array::Array(const std::string& t) {
+    length = t.size();
     if (length == 0) {
         data = nullptr;
     } else {
         data = new unsigned char[length];
-        for (size_t i = 0; i < length; ++i) {
+        for (size_t i = 0; i < length; i++) {
             if (t[i] < '0' || t[i] > '4') {
                 delete[] data;
                 throw std::invalid_argument("Invalid digit in string");
@@ -29,12 +35,13 @@ Five::Array::Array(const std::string& t) : length(t.size()) {
     }
 }
 
-Five::Array::Array(const Array& other) : length(other.length) {
+Five::Array::Array(const Array& other) {
+    length = other.length;
     if (length == 0) {
         data = nullptr;
     } else {
         data = new unsigned char[length];
-        for (size_t i = 0; i < length; ++i) {
+        for (size_t i = 0; i < length; i++) {
             data[i] = other.data[i];
         }
     }
@@ -66,21 +73,23 @@ Five::Array& Five::Array::operator=(const Array& other) {
     if (this == &other) {
         return *this;
     }
-
     delete[] data;
     length = other.length;
     if (length == 0) {
         data = nullptr;
     } else {
         data = new unsigned char[length];
-        for (size_t i = 0; i < length; ++i) {
+        for (size_t i = 0; i < length; i++) {
             data[i] = other.data[i];
         }
     }
     return *this;
 }
 
-Five::Five() : digits(1, 0) {}
+// Конструкторы Five
+Five::Five() {
+    digits = Array(1, 0);
+}
 
 Five::Five(const std::string& str) {
     for (char c : str) {
@@ -88,9 +97,8 @@ Five::Five(const std::string& str) {
             throw std::invalid_argument("Invalid digit in string");
         }
     }
-
     digits = Array(str.size());
-    for (size_t i = 0; i < str.size(); ++i) {
+    for (size_t i = 0; i < str.size(); i++) {
         digits[i] = str[str.size() - 1 - i] - '0';
     }
 }
@@ -100,20 +108,20 @@ Five::Five(int decimal) {
         digits = Array(1, 0);
         return;
     }
-
-    std::string temp;
+    std::string temp = "";
     while (decimal > 0) {
         temp += (decimal % 5) + '0';
         decimal /= 5;
     }
-
     digits = Array(temp.length());
-    for (size_t i = 0; i < temp.length(); ++i) {
+    for (size_t i = 0; i < temp.length(); i++) {
         digits[i] = temp[i] - '0';
     }
 }
 
-Five::Five(const Five& other) : digits(other.digits) {}
+Five::Five(const Five& other) {
+    digits = other.digits;
+}
 
 Five& Five::operator=(const Five& other) {
     if (this == &other) {
@@ -132,11 +140,9 @@ Five Five::operator+(const Five& other) const {
 Five Five::operator-(const Five& other) const {
     int a = to_decimal();
     int b = other.to_decimal();
-
     if (b > a) {
         return Five(0);
     }
-
     return Five(a - b);
 }
 
@@ -144,13 +150,11 @@ bool Five::operator==(const Five& other) const {
     if (digits.size() != other.digits.size()) {
         return false;
     }
-
-    for (size_t i = 0; i < digits.size(); ++i) {
+    for (size_t i = 0; i < digits.size(); i++) {
         if (digits[i] != other.digits[i]) {
             return false;
         }
     }
-
     return true;
 }
 
@@ -158,13 +162,11 @@ bool Five::operator<(const Five& other) const {
     if (digits.size() != other.digits.size()) {
         return digits.size() < other.digits.size();
     }
-
     for (int i = digits.size() - 1; i >= 0; i--) {
         if (digits[i] != other.digits[i]) {
             return digits[i] < other.digits[i];
         }
     }
-
     return false;
 }
 
@@ -172,13 +174,11 @@ bool Five::operator>(const Five& other) const {
     if (digits.size() != other.digits.size()) {
         return digits.size() > other.digits.size();
     }
-
     for (int i = digits.size() - 1; i >= 0; i--) {
         if (digits[i] != other.digits[i]) {
             return digits[i] > other.digits[i];
         }
     }
-
     return false;
 }
 
@@ -192,7 +192,7 @@ void Five::print() const {
 int Five::to_decimal() const {
     int result = 0;
     int power = 1;
-    for (size_t i = 0; i < digits.size(); ++i) {
+    for (size_t i = 0; i < digits.size(); i++) {
         result += digits[i] * power;
         power *= 5;
     }

@@ -17,7 +17,6 @@ TEST(FiveTest, DecimalConstructor) {
     EXPECT_EQ(num.to_decimal(), 22);
 }
 
-
 TEST(FiveTest, Addition) {
     Five a("42");
     Five b("34");
