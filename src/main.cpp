@@ -1,3 +1,6 @@
+//
+// Made by Egor on 01.10.25
+//
 #include "Five.h"
 #include <iostream>
 

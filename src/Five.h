@@ -1,3 +1,7 @@
+//
+// Made by Egor on 01.10.25
+//
+
 #ifndef FIVE_H
 #define FIVE_H
 
@@ -31,7 +35,6 @@ public:
 
     Five& operator=(const Five& other);
 
-    // Методы, а не операторы
     Five add(const Five& other) const;
     Five sub(const Five& other) const;
 

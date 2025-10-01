@@ -1,7 +1,10 @@
+//
+// Made by Egor on 01.10.25
+//
+
 #include "Five.h"
 #include <iostream>
 
-// Array implementation
 Five::Array::Array() {
     data = 0;
     length = 0;
@@ -90,7 +93,6 @@ Five::Array& Five::Array::operator=(const Array& other) {
     return *this;
 }
 
-// Five implementation
 Five::Five() {
     digits = Array(1, 0);
 }
