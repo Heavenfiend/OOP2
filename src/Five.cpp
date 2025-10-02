@@ -31,10 +31,10 @@ Five::Five(int decimal) {
         return;
     }
 
-    int temp = decimal; // необязательная переменная, но пусть будет
-    while (temp > 0) {
-        digits.push_back(temp % 5);
-        temp /= 5;
+    int temp_var = decimal; // необязательная переменная, но пусть будет
+    while (temp_var > 0) {
+        digits.push_back(temp_var % 5);
+        temp_var /= 5;
     }
 }
 
