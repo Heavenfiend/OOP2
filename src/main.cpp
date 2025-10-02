@@ -1,6 +1,5 @@
-#include <iostream>
-
 #include "Five.h"
+#include <iostream>
 
 int main() {
     system("chcp 65001");
@@ -13,26 +12,18 @@ int main() {
 
         Five num3 = num1.assign(num2);
 
-        std::cout << "num1: ";
-        num1.print();
-        std::cout << "num2: ";
-        num2.print();
-        std::cout << "sum = num1 + num2 = ";
-        sum.print();
-        std::cout << "diff = num1 - num2 = ";
-        diff.print();
-        std::cout << "num3 (копия): ";
-        num3.print();
+        std::cout << "num1: "; num1.print();
+        std::cout << "num2: "; num2.print();
+        std::cout << "сумма = num1 + num2 = "; sum.print();
+        std::cout << "разность = num1 - num2 = "; diff.print();
+        std::cout << "num3 (копия): "; num3.print();
 
-        std::cout << "num1 == num2: " << (num1.equals(num2) ? "true" : "false")
-                  << std::endl;
-        std::cout << "num1 < num2: " << (num1.less(num2) ? "true" : "false")
-                  << std::endl;
-        std::cout << "num1 > num2: " << (num1.greater(num2) ? "true" : "false")
-                  << std::endl;
+        std::cout << "num1 == num2: " << (num1.equals(num2) ? "да" : "нет") << std::endl;
+        std::cout << "num1 < num2: " << (num1.less(num2) ? "да" : "нет") << std::endl;
+        std::cout << "num1 > num2: " << (num1.greater(num2) ? "да" : "нет") << std::endl;
 
     } catch (const std::exception& e) {
-        std::cout << "Error: " << e.what() << std::endl;
+        std::cout << "Ошибка: " << e.what() << std::endl;
     }
 
     return 0;

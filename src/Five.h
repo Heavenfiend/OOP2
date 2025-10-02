@@ -1,13 +1,9 @@
-//
-// Made by Egor on 01.10.25
-//
-
 #ifndef FIVE_H
 #define FIVE_H
 
-#include <stdexcept>
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 class Five {
 private:
@@ -17,16 +13,12 @@ private:
     Five subDirect(const Five& other) const;
 
 public:
-    Five();
+    Five() : digits{0} {}
     Five(const std::string& str);
     Five(int decimal);
     Five(const Five& other) = default;
 
-    Five& operator=(const Five& other) {
-        throw std::runtime_error("Нельзя изменить этот объект!");
-    }
-
-    Five assign(const Five& other) const;
+    Five& operator=(const Five& other) = default;
 
     Five add(const Five& other) const;
     Five subtract(const Five& other) const;
@@ -37,6 +29,7 @@ public:
 
     size_t size() const;
     unsigned char getDigit(size_t index) const;
+    Five assign(const Five& other) const;
 
     std::string toString() const;
     void print() const;
