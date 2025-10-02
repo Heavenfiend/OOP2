@@ -1,3 +1,7 @@
+
+// Сделал Егор Колосов
+// Made by Egor
+// 10 01 2025
 #include "Five.h"
 #include <iostream>
 #include <stdexcept>

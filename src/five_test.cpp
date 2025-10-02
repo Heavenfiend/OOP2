@@ -5,12 +5,12 @@ TEST(FiveTest, CreateFromString) {
     Five a("42");
     EXPECT_EQ(a.toDecimal(), 22);
 }
-
+// 12332
 TEST(FiveTest, CreateFromDecimal) {
     Five a(22);
     EXPECT_EQ(a.toDecimal(), 22);
 }
-
+//12 321312
 TEST(FiveTest, AddTwoNumbers) {
     Five a("42");
     Five b("34");
@@ -19,7 +19,7 @@ TEST(FiveTest, AddTwoNumbers) {
 }
 
 TEST(FiveTest, SubtractTwoNumbers) {
-    Five a("42");
+    Five a("42"); // 1233333
     Five b("34");
     Five c = a.subtract(b);
     EXPECT_EQ(c.toDecimal(), 3);
@@ -33,7 +33,7 @@ TEST(FiveTest, SubResultZero) {
 }
 
 TEST(FiveTest, LessThan) {
-    Five a("34");
+    Five a("34"); // 12333 да тут так
     Five b("42");
     EXPECT_TRUE(a.less(b));
 }
