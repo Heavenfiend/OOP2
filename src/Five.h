@@ -1,9 +1,8 @@
 #ifndef FIVE_H
 #define FIVE_H
 
-#include <string>
 #include <vector>
-#include <stdexcept>
+#include <string>
 
 class Five {
 private:
@@ -13,12 +12,12 @@ private:
     Five subDirect(const Five& other) const;
 
 public:
-    Five() : digits{0} {}
+    Five();
     Five(const std::string& str);
     Five(int decimal);
-    Five(const Five& other) = default;
+    Five(const Five& other);
 
-    Five& operator=(const Five& other) = default;
+    Five& operator=(const Five& other);
 
     Five add(const Five& other) const;
     Five subtract(const Five& other) const;

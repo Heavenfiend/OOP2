@@ -1,40 +1,39 @@
 #include "Five.h"
-#include <algorithm>
 #include <iostream>
 #include <stdexcept>
+#include <string>
 
 Five::Five(const std::string& str) {
     if (str.empty()) {
-        digits = {0};
+        digits.push_back(0);
         return;
     }
 
-    for (char c : str) {
+    for (int i = 0; i < str.length(); i++) {
+        char c = str[i];
         if (c < '0' || c > '4') {
-            throw std::invalid_argument("Неверная цифра в числе в пятиричной системе");
+            throw std::invalid_argument("Wrong number in string");
         }
     }
 
-    digits.resize(str.size());
-    for (size_t i = 0; i < str.size(); ++i) {
-        digits[str.size() - 1 - i] = str[i] - '0';
+    for (int i = str.length() - 1; i >= 0; i--) {
+        digits.push_back(str[i] - '0');
     }
 }
 
 Five::Five(int decimal) {
     if (decimal < 0) {
-        throw std::invalid_argument("Отрицательные числа не поддерживаются");
+        throw std::invalid_argument("Negative number not allowed");
     }
 
-    int num = decimal;
-    if (num == 0) {
-        digits = {0};
+    if (decimal == 0) {
+        digits.push_back(0);
         return;
     }
 
-    while (num > 0) {
-        digits.push_back(num % 5);
-        num /= 5;
+    while (decimal > 0) {
+        digits.push_back(decimal % 5);
+        decimal /= 5;
     }
 }
 
@@ -51,12 +50,12 @@ Five Five::subtract(const Five& other) const {
 
 Five Five::addDirect(const Five& other) const {
     std::vector<unsigned char> result;
-    size_t maxSize = std::max(digits.size(), other.digits.size());
-    unsigned char carry = 0;
+    int carry = 0;
+    int maxSize = digits.size();
+    if (other.digits.size() > maxSize) maxSize = other.digits.size();
 
-    for (size_t i = 0; i < maxSize || carry; ++i) {
-        unsigned char sum = carry;
-
+    for (int i = 0; i < maxSize || carry; i++) {
+        int sum = carry;
         if (i < digits.size()) sum += digits[i];
         if (i < other.digits.size()) sum += other.digits[i];
 
@@ -64,17 +63,17 @@ Five Five::addDirect(const Five& other) const {
         carry = sum / 5;
     }
 
-    Five newNum;
-    newNum.digits = result;
-    return newNum;
+    Five res;
+    res.digits = result;
+    return res;
 }
 
 Five Five::subDirect(const Five& other) const {
     std::vector<unsigned char> result;
-    unsigned char borrow = 0;
+    int borrow = 0;
 
-    for (size_t i = 0; i < digits.size(); ++i) {
-        unsigned char diff = digits[i] - borrow;
+    for (int i = 0; i < digits.size(); i++) {
+        int diff = digits[i] - borrow;
 
         if (i < other.digits.size()) {
             if (diff < other.digits[i]) {
@@ -87,16 +86,17 @@ Five Five::subDirect(const Five& other) const {
         } else {
             borrow = 0;
         }
+
         result.push_back(diff);
     }
 
-    while (result.size() > 1 && result.back() == 0) {
+    while (result.size() > 1 && result[result.size() - 1] == 0) {
         result.pop_back();
     }
 
-    Five newNum;
-    newNum.digits = result;
-    return newNum;
+    Five res;
+    res.digits = result;
+    return res;
 }
 
 Five Five::assign(const Five& other) const {
@@ -104,7 +104,12 @@ Five Five::assign(const Five& other) const {
 }
 
 bool Five::equals(const Five& other) const {
-    return digits == other.digits;
+    if (digits.size() != other.digits.size()) return false;
+
+    for (int i = 0; i < digits.size(); i++) {
+        if (digits[i] != other.digits[i]) return false;
+    }
+    return true;
 }
 
 bool Five::less(const Five& other) const {
@@ -112,16 +117,16 @@ bool Five::less(const Five& other) const {
         return digits.size() < other.digits.size();
     }
 
-    for (int i = digits.size() - 1; i >= 0; --i) {
-        if (digits[i] != other.digits[i]) {
-            return digits[i] < other.digits[i];
-        }
+    for (int i = digits.size() - 1; i >= 0; i--) {
+        if (digits[i] < other.digits[i]) return true;
+        if (digits[i] > other.digits[i]) return false;
     }
     return false;
 }
 
 bool Five::greater(const Five& other) const {
-    return !less(other) && !equals(other);
+    if (equals(other)) return false;
+    return !less(other);
 }
 
 size_t Five::size() const {
@@ -130,7 +135,7 @@ size_t Five::size() const {
 
 unsigned char Five::getDigit(size_t index) const {
     if (index >= digits.size()) {
-        throw std::out_of_range("Индекс вне диапазона");
+        throw std::out_of_range("Index out of range");
     }
     return digits[index];
 }
@@ -138,9 +143,9 @@ unsigned char Five::getDigit(size_t index) const {
 std::string Five::toString() const {
     if (digits.empty()) return "0";
 
-    std::string result;
-    for (int i = digits.size() - 1; i >= 0; --i) {
-        result += std::to_string(digits[i]);
+    std::string result = "";
+    for (int i = digits.size() - 1; i >= 0; i--) {
+        result += (char)('0' + digits[i]);
     }
     return result;
 }
@@ -151,10 +156,11 @@ void Five::print() const {
 
 int Five::toDecimal() const {
     int result = 0;
-    int power = 1;
-    for (size_t i = 0; i < digits.size(); ++i) {
-        result += digits[i] * power;
-        power *= 5;
+    int mult = 1;
+
+    for (int i = 0; i < digits.size(); i++) {
+        result += digits[i] * mult;
+        mult *= 5;
     }
     return result;
 }

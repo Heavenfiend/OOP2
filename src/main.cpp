@@ -9,21 +9,25 @@ int main() {
 
         Five sum = num1.add(num2);
         Five diff = num1.subtract(num2);
-
         Five num3 = num1.assign(num2);
 
-        std::cout << "num1: "; num1.print();
-        std::cout << "num2: "; num2.print();
-        std::cout << "сумма = num1 + num2 = "; sum.print();
-        std::cout << "разность = num1 - num2 = "; diff.print();
-        std::cout << "num3 (копия): "; num3.print();
+        std::cout << "num1: ";
+        num1.print();
+        std::cout << "num2: ";
+        num2.print();
+        std::cout << "sum: ";
+        sum.print();
+        std::cout << "diff: ";
+        diff.print();
+        std::cout << "num3: ";
+        num3.print();
 
-        std::cout << "num1 == num2: " << (num1.equals(num2) ? "да" : "нет") << std::endl;
-        std::cout << "num1 < num2: " << (num1.less(num2) ? "да" : "нет") << std::endl;
-        std::cout << "num1 > num2: " << (num1.greater(num2) ? "да" : "нет") << std::endl;
+        std::cout << "equal: " << (num1.equals(num2) ? "yes" : "no") << std::endl;
+        std::cout << "less: " << (num1.less(num2) ? "yes" : "no") << std::endl;
+        std::cout << "greater: " << (num1.greater(num2) ? "yes" : "no") << std::endl;
 
     } catch (const std::exception& e) {
-        std::cout << "Ошибка: " << e.what() << std::endl;
+        std::cout << "Error: " << e.what() << std::endl;
     }
 
     return 0;
