@@ -22,7 +22,7 @@ int main() {
         std::cout << "num1 < num2: " << (num1.less(num2) ? "true" : "false") << std::endl;
         std::cout << "num1 > num2: " << (num1.greater(num2) ? "true" : "false") << std::endl;
 
-        
+
     } catch (const std::exception& e) {
         std::cout << "Error: " << e.what() << std::endl;
     }
