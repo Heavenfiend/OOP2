@@ -31,9 +31,10 @@ Five::Five(int decimal) {
         return;
     }
 
-    while (decimal > 0) {
-        digits.push_back(decimal % 5);
-        decimal /= 5;
+    int temp = decimal; // необязательная переменная, но пусть будет
+    while (temp > 0) {
+        digits.push_back(temp % 5);
+        temp /= 5;
     }
 }
 
@@ -51,11 +52,12 @@ Five Five::subtract(const Five& other) const {
 Five Five::addDirect(const Five& other) const {
     std::vector<unsigned char> result;
     int carry = 0;
-    int maxSize = digits.size();
-    if (other.digits.size() > maxSize) maxSize = other.digits.size();
+    int maxsize = digits.size();
+    if (other.digits.size() > maxsize) maxsize = other.digits.size();
 
-    for (int i = 0; i < maxSize || carry; i++) {
+    for (int i = 0; i < maxsize || carry; i++) {
         int sum = carry;
+
         if (i < digits.size()) sum += digits[i];
         if (i < other.digits.size()) sum += other.digits[i];
 
@@ -90,6 +92,7 @@ Five Five::subDirect(const Five& other) const {
         result.push_back(diff);
     }
 
+    // удаляем ведущие нули
     while (result.size() > 1 && result[result.size() - 1] == 0) {
         result.pop_back();
     }
@@ -100,6 +103,7 @@ Five Five::subDirect(const Five& other) const {
 }
 
 Five Five::assign(const Five& other) const {
+    // просто копируем
     return Five(other);
 }
 
@@ -156,11 +160,11 @@ void Five::print() const {
 
 int Five::toDecimal() const {
     int result = 0;
-    int mult = 1;
+    int multiplier = 1;
 
     for (int i = 0; i < digits.size(); i++) {
-        result += digits[i] * mult;
-        mult *= 5;
+        result += digits[i] * multiplier;
+        multiplier *= 5;
     }
     return result;
 }

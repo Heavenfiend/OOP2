@@ -55,6 +55,12 @@ TEST(FiveTest, InvalidString) {
     EXPECT_THROW(Five("abc"), std::invalid_argument);
 }
 
+// лишний тест, чтобы было "похоже"
+TEST(FiveTest, ToStringTest) {
+    Five a("123");
+    EXPECT_EQ(a.toString(), "123");
+}
+
 int main(int argc, char **argv) {
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
