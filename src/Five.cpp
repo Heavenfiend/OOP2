@@ -143,28 +143,3 @@ unsigned char Five::getDigit(size_t index) const {
     }
     return digits[index];
 }
-
-std::string Five::toString() const {
-    if (digits.empty()) return "0";
-
-    std::string result = "";
-    for (int i = digits.size() - 1; i >= 0; i--) {
-        result += (char)('0' + digits[i]);
-    }
-    return result;
-}
-
-void Five::print() const {
-    std::cout << toString() << std::endl;
-}
-
-int Five::toDecimal() const {
-    int result = 0;
-    int multiplier = 1;
-
-    for (int i = 0; i < digits.size(); i++) {
-        result += digits[i] * multiplier;
-        multiplier *= 5;
-    }
-    return result;
-}
