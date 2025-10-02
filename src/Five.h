@@ -5,9 +5,9 @@
 #ifndef FIVE_H
 #define FIVE_H
 
+#include <stdexcept>
 #include <string>
 #include <vector>
-#include <stdexcept>
 
 class Five {
 private:
